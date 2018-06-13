@@ -17,6 +17,8 @@ Please install cython and numpy prior to installing benepar.""")
 with open("README.md", "r") as f:
     long_description = f.read()
 
+extensions = [setuptools.Extension("*", ["benepar/*.pyx"], include_dirs=[np.get_include()])]
+
 setuptools.setup(
     name="benepar",
     version="0.0.1",
@@ -28,8 +30,9 @@ setuptools.setup(
     url="https://github.com/nikitakit/self-attentive-parser",
     packages=setuptools.find_packages(),
     package_data={'': ['*.pyx']},
-    ext_modules = cythonize("benepar/*.pyx"),
-    include_dirs=[np.get_include()],
+    # ext_modules = cythonize("benepar/*.pyx"),
+    ext_modules = cythonize(extensions),
+    # include_dirs=[np.get_include()],
     classifiers=(
         'Programming Language :: Python :: 2.7',
         "Programming Language :: Python :: 3",
